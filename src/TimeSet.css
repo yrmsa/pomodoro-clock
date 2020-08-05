@@ -1,0 +1,25 @@
+.timeset {
+  margin: 20px 40px;
+  text-align: center;
+}
+
+.timer-setter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-setter button {
+  width: 45px;
+  padding: 5px 15px;
+  margin: 0 10px;
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 20px;
+}
+
+.timer-setter span {
+  font-size: 20px;
+  text-shadow: none;
+}
