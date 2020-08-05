@@ -5,7 +5,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: 100vh;
+  /* min-height: 100vh; */
 }
 
 .App {
@@ -47,4 +48,14 @@ h1 {
   border: none;
   border-radius: 10px;
   font-size: 20px;
+  cursor: pointer;
+}
+
+.footer-wrapper{
+  text-shadow: none;
+  position: relative;
+  top: 100px;
+  width: 100%;
+  color: white;
+  text-align: center;
 }

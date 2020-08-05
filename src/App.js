@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import TimeSet from './TimeSet'
+import TimeSet from './components/TimeSet'
+import Footer from './components/Footer';
 
 class App extends React.Component {
 
@@ -162,6 +163,7 @@ class App extends React.Component {
             <button onClick={this.handleReset}>Reset</button>
           </div>
         </div>
+        <Footer className='footer-wrapper'/>
       </div>
     );
   }
