@@ -15,6 +15,10 @@ class App extends React.Component {
       isPlay: false,
       title: 'Session'
     }
+    this.sessionEndedAudio = new Audio(process.env.PUBLIC_URL + "/audio/accomplished-579.ogg");
+    this.sessionEndedAudio.preload = 'auto';
+    this.breakEndedAudio = new Audio(process.env.PUBLIC_URL + "/audio/plucky-564.ogg");
+    this.breakEndedAudio.preload = 'auto';
   }
 
   handleIncrease = (title) => {
@@ -88,6 +92,18 @@ class App extends React.Component {
         const { timeCounter, title, breakTime, sessionTime } = this.state;
         
         if(timeCounter === 0) {
+          if(Notification.permission === 'granted') {
+            let notification = new Notification(`${title} ended!`, {silent: true});
+            setTimeout(() => {
+              notification.close();
+            }, 3000)
+          }
+          if(title === 'Session') {
+            this.sessionEndedAudio.play();
+          }
+          else {
+            this.breakEndedAudio.play();
+          }
           this.setState({
             title: (title === 'Session') ? 'Break' : 'Session',
             timeCounter: (title === 'Session') ? (breakTime * 60) : (sessionTime * 60)
@@ -112,6 +128,12 @@ class App extends React.Component {
       title: 'Session'
     });
     
+  }
+
+  componentDidMount() {
+    if(Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
   }
 
   componentWillUnmount() {
