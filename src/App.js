@@ -93,10 +93,17 @@ class App extends React.Component {
         
         if(timeCounter === 0) {
           if(Notification.permission === 'granted') {
-            let notification = new Notification(`${title} ended!`, {silent: true});
+            let message;
+            if(title === 'Session') {
+              message = `Great job, give yourself a break!`;
+            }
+            else if(title === 'Break'){
+              message = `Ready for the next Session?`;
+            }
+            let notification = new Notification(message, {silent: true});
             setTimeout(() => {
               notification.close();
-            }, 3000)
+            }, 5000)
           }
           if(title === 'Session') {
             this.sessionEndedAudio.play();
@@ -119,15 +126,24 @@ class App extends React.Component {
   }
 
   handleReset = () => {
-    console.log('click reset');
-    clearInterval(this.loop);
-    this.loop = undefined;
-    this.setState({
-      timeCounter: this.state.sessionTime * 60,
-      isPlay: false,
-      title: 'Session'
-    });
-    
+    const {isPlay} = this.state;
+    if(isPlay){
+      console.log('click reset');
+      clearInterval(this.loop);
+      this.loop = undefined;
+      this.setState({
+        timeCounter: this.state.sessionTime * 60,
+        isPlay: false,
+        title: 'Session'
+      });
+      if(Notification.permission === 'granted'){
+        let message = `Time reset`;
+        let notification = new Notification(message, {silent: true});
+        setTimeout(() => {
+          notification.close();
+        }, 2000)
+      }
+    }
   }
 
   componentDidMount() {
@@ -145,8 +161,7 @@ class App extends React.Component {
     const { title, sessionTime, breakTime, isPlay } = this.state;
     if(isPlay){
       this.setState({
-        title: (title === 'Session') ? 'Break' : 'Session',
-        timeCounter: (title === 'Session') ? (breakTime * 60) : (sessionTime * 60)
+        timeCounter: 0
       })
     }
   }
